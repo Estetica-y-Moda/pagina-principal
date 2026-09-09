@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Estética & Moda</title>
+<meta name="description" content="Salón de belleza, local de ropa femenina y mini plaza infantil en un solo espacio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,480;0,9..144,600;1,9..144,480;1,9..144,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   CENTRO DE ESTÉTICA & MODA — estilos
+   Paleta: crema cálido, ciruela, rosa polvo, salvia, dorado
+=================================================================== */
+
+:root{
+  --cream:   #FBF3EE;
+  --paper:   #FFFFFF;
+  --blush:   #F4DCD8;
+  --rose:    #D9899A;
+  --rose-dk: #C06E82;
+  --plum:    #6C4759;
+  --plum-dk: #4A2F3E;
+  --sage:    #A9BFA3;
+  --sage-dk: #7C9976;
+  --gold:    #C6A15B;
+  --ink:     #3E2B33;
+  --ink-soft:#7C6670;
+  --line:    #E7D3CC;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Outfit", "Segoe UI", sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --shadow-soft: 0 12px 32px -16px rgba(76, 45, 58, 0.28);
+  --shadow-lift: 0 20px 44px -18px rgba(76, 45, 58, 0.38);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  color:var(--plum-dk);
+  margin:0 0 .4em;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+p{ margin:0 0 .8em; color:var(--ink-soft); }
+em{ font-style:italic; color:var(--rose-dk); }
+button{ font-family:inherit; cursor:pointer; }
+
+::selection{ background:var(--rose); color:#fff; }
+
+:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+/* subtle paper grain, purely decorative */
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+  background-image:radial-gradient(rgba(108,71,89,0.035) 1px, transparent 1px);
+  background-size:3px 3px;
+}
+
+/* ---------- layout helpers ---------- */
+main{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
+.section-heading{ max-width:640px; margin:0 auto 34px; text-align:center; }
+.section-heading h2{ font-size:clamp(1.6rem, 3vw, 2.2rem); }
+.eyebrow{
+  display:inline-block; font-family:var(--font-body); font-weight:600;
+  font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--sage-dk); margin-bottom:10px;
+}
+
+/* ===================== NAVBAR ===================== */
+.navbar{
+  position:sticky; top:0; z-index:50;
+  background:rgba(251,243,238,0.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:1180px; margin:0 auto; padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  background:none; border:none; padding:0;
+  font-family:var(--font-display); font-size:1.15rem; color:var(--plum-dk);
+}
+.brand-icon{ font-size:1.3rem; }
+.brand-text em{ color:var(--rose-dk); }
+
+.nav-menu{ display:flex; gap:6px; flex-wrap:wrap; }
+.nav-link{
+  background:none; border:none; padding:9px 14px;
+  font-size:.92rem; font-weight:500; color:var(--ink-soft);
+  border-radius:999px; transition:background .2s, color .2s;
+}
+.nav-link:hover{ background:var(--blush); color:var(--plum-dk); }
+.nav-link.active{ background:var(--plum); color:#fff; }
+
+.nav-toggle{
+  display:none; flex-direction:column; gap:5px; background:none; border:none; padding:8px;
+}
+.nav-toggle span{ width:22px; height:2px; background:var(--plum-dk); border-radius:2px; }
+
+/* ===================== VIEWS ===================== */
+.view{ display:none; padding:48px 0 80px; animation:fadeUp .5s ease both; }
+.view.active{ display:block; }
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .view{ animation:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ===================== HERO ===================== */
+.hero{
+  display:grid; grid-template-columns:1.2fr .8fr; gap:40px; align-items:center;
+  padding:20px 0 60px;
+}
+.eyebrow + h1{ margin-top:0; }
+.hero h1{
+  font-size:clamp(1.9rem, 4vw, 2.9rem); line-height:1.16; font-weight:500;
+}
+.lead{ font-size:1.08rem; max-width:46ch; }
+.hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin:22px 0 20px; }
+
+.btn{
+  border:none; border-radius:999px; padding:13px 26px; font-size:.98rem; font-weight:600;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-primary{ background:var(--rose); color:#fff; box-shadow:var(--shadow-soft); }
+.btn-primary:hover{ background:var(--rose-dk); transform:translateY(-2px); box-shadow:var(--shadow-lift); }
+.btn-ghost{ background:transparent; color:var(--plum-dk); border:1.5px solid var(--plum); }
+.btn-ghost:hover{ background:var(--plum); color:#fff; }
+
+.badge-pill{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--paper); border:1px solid var(--line); border-radius:999px;
+  padding:9px 18px 9px 10px; box-shadow:var(--shadow-soft); font-size:.92rem; color:var(--plum-dk);
+}
+.badge-pill-icon{
+  display:grid; place-items:center; width:30px; height:30px; border-radius:50%;
+  background:var(--sage); font-size:1rem;
+}
+.badge-pill strong{ color:var(--rose-dk); }
+
+.hero-mark{ display:flex; justify-content:center; }
+.mark-svg{ width:min(280px, 80vw); height:auto; }
+.mark-ring{ fill:none; stroke:var(--blush); stroke-width:1.5; stroke-dasharray:4 6; }
+.mark-ring--2{ stroke:var(--sage); }
+.mark-emoji{ font-size:64px; }
+
+/* ---- hero collage (ilustraciones SVG, no dependen de internet) ---- */
+.hero-collage{ position:relative; min-height:360px; }
+.collage-img{
+  position:absolute; border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lift); border:6px solid var(--paper); overflow:hidden;
+}
+.collage-img svg{ display:block; width:100%; height:100%; }
+.collage-img--1{ width:64%; height:340px; top:0; right:6%; }
+.collage-img--2{ width:48%; height:190px; bottom:0; left:0; z-index:2; }
+.collage-badge{
+  position:absolute; top:-14px; left:10%; width:74px; height:74px; z-index:3;
+  display:grid; place-items:center;
+}
+.collage-badge-svg{ position:absolute; inset:0; width:100%; height:100%; }
+.collage-badge span{ font-size:1.7rem; background:var(--paper); border-radius:50%; width:52px; height:52px; display:grid; place-items:center; box-shadow:var(--shadow-soft); }
+
+/* ---- ilustraciones dentro de tarjetas de servicio ---- */
+.service-card{ padding:0; overflow:hidden; }
+.service-photo{ width:100%; height:140px; display:block; background:var(--blush); }
+.service-photo svg{ display:block; width:100%; height:100%; }
+.service-card .service-body{ padding:18px 20px 20px; }
+
+/* ---- formulario reserva ---- */
+.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-field label{ display:block; font-size:.82rem; font-weight:600; color:var(--plum); margin-bottom:6px; }
+.form-field input{
+  width:100%; padding:11px 14px; border-radius:var(--radius-sm); border:1px solid var(--line);
+  font-family:inherit; font-size:.95rem; background:var(--cream); color:var(--ink);
+}
+.form-field input:focus{ outline:2px solid var(--gold); }
+@media (max-width:520px){ .form-row{ grid-template-columns:1fr; } }
+
+/* ---- mini galería plaza ---- */
+
+/* ---- ilustración en tabla de stock ---- */
+.stock-thumb{ width:44px; height:44px; border-radius:10px; overflow:hidden; display:block; }
+.stock-thumb svg{ display:block; width:100%; height:100%; }
+
+@media (max-width:900px){
+  .hero-collage{ min-height:260px; }
+  .collage-img--1{ height:230px; }
+  .collage-img--2{ height:130px; }
+}
+
+/* ===================== FLOORPLAN (hub interactivo) ===================== */
+.floorplan-wrap{ padding-top:20px; }
+.floorplan{
+  display:grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  grid-template-rows: 64px 190px 150px;
+  grid-template-areas:
+    "entrada entrada entrada"
+    "plaza recepcion ropa"
+    "salon salon salon";
+  gap:10px;
+  background:var(--paper);
+  border:1.5px dashed var(--rose);
+  border-radius:var(--radius-lg);
+  padding:14px;
+  box-shadow:var(--shadow-soft);
+}
+.room{
+  border:1.5px dashed var(--line);
+  border-radius:var(--radius-md);
+  background:var(--cream);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:6px; text-align:center; position:relative;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+.room:hover{ transform:translateY(-3px); box-shadow:var(--shadow-soft); border-style:solid; }
+.room-icon{ font-size:1.6rem; }
+.room-tag{ font-family:var(--font-display); font-weight:600; color:var(--plum-dk); font-size:1rem; }
+.room-tag small{ display:block; font-family:var(--font-body); font-weight:400; color:var(--ink-soft); font-size:.74rem; margin-top:2px; }
+
+.room--entrada{ background:transparent; border-style:dashed; cursor:pointer; }
+.room--entrada .room-tag{ font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+.room--plaza{ background:#F2F7EF; border-color:var(--sage); }
+.room--recepcion{ background:var(--blush); border-color:var(--rose); }
+.room--ropa{ background:#FBEFE3; border-color:var(--gold); }
+.room--salon{ background:#F7E9EC; border-color:var(--rose-dk); }
+
+.room-door{
+  position:absolute; top:8px; right:10px; font-size:.95rem; opacity:.7;
+  padding:4px; border-radius:50%;
+}
+.room-door:hover{ opacity:1; background:rgba(255,255,255,.6); }
+
+.floorplan-hint{ text-align:center; font-size:.85rem; margin-top:14px; color:var(--ink-soft); }
+
+@media (max-width: 720px){
+  .floorplan{
+    grid-template-columns:1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+      "entrada"
+      "recepcion"
+      "plaza"
+      "ropa"
+      "salon";
+  }
+  .room{ min-height:96px; }
+}
+
+/* ===================== TABS ===================== */
+.tabs{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:30px; }
+.tab{
+  background:var(--paper); border:1px solid var(--line); color:var(--ink-soft);
+  padding:10px 18px; border-radius:999px; font-weight:600; font-size:.9rem;
+  transition:all .2s ease;
+}
+.tab:hover{ border-color:var(--rose); color:var(--plum-dk); }
+.tab.active{ background:var(--plum); border-color:var(--plum); color:#fff; }
+
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; animation:fadeUp .4s ease both; }
+
+.service-grid{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:16px;
+}
+.service-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:20px; box-shadow:var(--shadow-soft); position:relative;
+}
+.service-card h3{ font-size:1.05rem; margin-bottom:6px; }
+.service-card p{ font-size:.88rem; margin-bottom:14px; }
+.price{
+  display:inline-block; font-weight:700; color:var(--rose-dk);
+  background:var(--blush); padding:4px 12px; border-radius:999px; font-size:.85rem;
+}
+.cta-row{ text-align:center; margin-top:36px; }
+
+/* ===================== TARJETAS DE ACCESO (salón / ropa) ===================== */
+.acceso-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:22px;
+}
+.acceso-card{
+  display:flex; flex-direction:column; text-align:left;
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg);
+  overflow:hidden; box-shadow:var(--shadow-soft); cursor:pointer;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  animation:fadeUp .45s ease both;
+}
+.acceso-card:hover, .acceso-card:focus-visible{
+  transform:translateY(-6px); box-shadow:var(--shadow-lift);
+  border-color:var(--rose); outline:none;
+}
+.acceso-photo{ aspect-ratio:4/3; overflow:hidden; }
+.acceso-photo svg{ width:100%; height:100%; display:block; }
+.acceso-body{ padding:22px 22px 24px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.acceso-body h3{ font-family:var(--font-display); font-size:1.25rem; margin:0; color:var(--plum-dk); }
+.acceso-body p{ font-size:.9rem; margin:0; color:var(--ink-soft); flex:1; }
+.acceso-go{
+  display:inline-flex; align-items:center; gap:6px; align-self:flex-start;
+  margin-top:8px; padding:9px 18px; border-radius:999px;
+  background:var(--plum); color:#fff; font-weight:600; font-size:.86rem;
+  transition:background .2s ease;
+}
+.acceso-card:hover .acceso-go{ background:var(--rose-dk); }
+.acceso-card.is-soon{ cursor:default; opacity:.72; }
+.acceso-card.is-soon:hover{ transform:none; box-shadow:var(--shadow-soft); border-color:var(--line); }
+.acceso-card.is-soon .acceso-go{
+  background:var(--blush); color:var(--plum); border:1px dashed var(--rose);
+}
+
+
+/* ===================== VISOR DE SITIO EMBEBIDO ===================== */
+.sitio-overlay{
+  position:fixed; inset:0; z-index:200;
+  display:flex; flex-direction:column;
+  background:var(--cream);
+  animation:fadeUp .3s ease both;
+}
+.sitio-overlay[hidden]{ display:none; }
+.sitio-bar{
+  display:flex; align-items:center; gap:14px;
+  padding:10px 18px; background:var(--plum); color:#fff;
+  box-shadow:var(--shadow-lift); flex-shrink:0;
+}
+.sitio-volver{
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,.14); color:#fff;
+  border:1px solid rgba(255,255,255,.3); border-radius:999px;
+  padding:8px 16px; font-weight:600; font-size:.86rem;
+  transition:background .2s ease;
+}
+.sitio-volver:hover{ background:rgba(255,255,255,.28); }
+.sitio-titulo{
+  font-family:var(--font-display); font-size:1rem; font-weight:600;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.sitio-frame{ flex:1; width:100%; border:0; background:#fff; }
+
+/* ===================== MINI PLAZA ===================== */
+/* ===================== AGENDA / BOOKING ===================== */
+.booking{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:28px; box-shadow:var(--shadow-soft); max-width:760px; margin:0 auto 40px;
+}
+.booking-step{ margin-bottom:22px; }
+.booking-step h3{ font-size:.95rem; font-family:var(--font-body); font-weight:700; color:var(--plum); margin-bottom:12px; }
+
+.chips{ display:flex; gap:8px; flex-wrap:wrap; }
+.chip{
+  background:var(--cream); border:1px solid var(--line); color:var(--ink);
+  padding:8px 16px; border-radius:999px; font-size:.86rem; font-weight:600; transition:all .2s;
+}
+.chip:hover{ border-color:var(--rose); }
+.chip.active{ background:var(--rose); border-color:var(--rose); color:#fff; }
+
+.slots{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:8px; }
+.slot{
+  background:var(--cream); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:10px 6px; font-size:.85rem; font-weight:600; color:var(--ink);
+}
+.slot:hover:not(:disabled){ border-color:var(--sage-dk); }
+.slot.selected{ background:var(--plum); border-color:var(--plum); color:#fff; }
+.slot:disabled{ background:#F1EAE7; color:#C9BDB8; text-decoration:line-through; cursor:not-allowed; }
+
+.booking-summary{
+  margin-top:22px; padding:16px 18px; background:var(--blush); border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+.booking-summary p{ margin:0; color:var(--plum-dk); }
+
+.my-bookings{ max-width:760px; margin:0 auto; }
+.my-bookings h3{ font-size:1.05rem; margin-bottom:12px; }
+.booking-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.booking-list li{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.booking-list .empty-state{ color:var(--ink-soft); background:transparent; border-style:dashed; justify-content:center; }
+.booking-list .cancel-btn{
+  background:none; border:none; color:var(--rose-dk); font-weight:700; font-size:.82rem;
+}
+
+/* ===================== GESTIÓN: FIDELIZACIÓN ===================== */
+.loyalty-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:26px; box-shadow:var(--shadow-soft); max-width:640px; margin:0 auto 34px;
+}
+.loyalty-search label{ font-size:.85rem; font-weight:600; color:var(--plum); display:block; margin-bottom:8px; }
+.search-row{ display:flex; gap:10px; }
+.search-row input{
+  flex:1; padding:11px 14px; border-radius:999px; border:1px solid var(--line);
+  font-family:inherit; font-size:.95rem; background:var(--cream); color:var(--ink);
+}
+.search-row input:focus{ outline:2px solid var(--gold); }
+
+.loyalty-result{ margin-top:22px; text-align:center; }
+.loyalty-name{ font-weight:700; color:var(--plum-dk); margin-bottom:12px; }
+.progress-track{
+  position:relative; height:14px; background:var(--cream); border-radius:999px; overflow:hidden;
+  border:1px solid var(--line);
+}
+.progress-fill{ height:100%; background:linear-gradient(90deg, var(--gold), var(--rose)); width:0%; transition:width .5s ease; }
+.progress-dots{ display:flex; justify-content:space-between; margin-top:8px; padding:0 2px; font-size:.78rem; color:var(--ink-soft); }
+.loyalty-msg{ margin-top:12px; font-weight:600; color:var(--rose-dk); }
+
+.benefits-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:900px; margin:0 auto; }
+.benefit-card{ background:var(--blush); border-radius:var(--radius-md); padding:20px; }
+.benefit-card h4{ font-size:.98rem; margin-bottom:6px; color:var(--plum-dk); }
+.benefit-card p{ font-size:.86rem; margin:0; }
+
+/* ===================== GESTIÓN: STOCK ===================== */
+.table-wrap{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:8px; box-shadow:var(--shadow-soft); overflow-x:auto;
+}
+.stock-table{ width:100%; border-collapse:collapse; min-width:560px; }
+.stock-table th{
+  text-align:left; font-size:.76rem; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--sage-dk); padding:14px 16px; border-bottom:1px solid var(--line);
+}
+.stock-table td{ padding:13px 16px; border-bottom:1px solid var(--line); font-size:.92rem; }
+.stock-table tr:last-child td{ border-bottom:none; }
+.stock-cat{
+  font-size:.74rem; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--cream); color:var(--ink-soft);
+}
+.stock-qty{ font-weight:700; }
+.stock-qty.low{ color:var(--rose-dk); }
+.stock-controls{ display:flex; gap:6px; align-items:center; }
+.stock-btn{
+  width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:var(--cream);
+  font-weight:700; color:var(--plum-dk); display:grid; place-items:center; line-height:1;
+}
+.stock-btn:hover{ background:var(--blush); border-color:var(--rose); }
+.stock-btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* ===================== FOOTER ===================== */
+.site-footer{
+  text-align:center; padding:26px 24px; color:var(--ink-soft); font-size:.85rem;
+  border-top:1px solid var(--line);
+}
+
+/* ===================== TOAST ===================== */
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translate(-50%, 20px);
+  background:var(--plum); color:#fff; padding:13px 22px; border-radius:999px;
+  font-size:.9rem; font-weight:600; box-shadow:var(--shadow-lift);
+  opacity:0; pointer-events:none; transition:opacity .3s ease, transform .3s ease;
+  z-index:100;
+}
+.toast.show{ opacity:1; transform:translate(-50%, 0); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px){
+  .hero{ grid-template-columns:1fr; }
+  .hero-mark{ order:-1; }
+  .mark-svg{ width:180px; }
+  .benefits-grid{ grid-template-columns:1fr; }
+}
+
+@media (max-width: 760px){
+  .nav-menu{
+    position:absolute; top:100%; left:0; right:0;
+    background:var(--paper); border-bottom:1px solid var(--line);
+    flex-direction:column; padding:10px 16px; gap:2px;
+    display:none;
+  }
+  .nav-menu.open{ display:flex; }
+  .nav-link{ text-align:left; border-radius:var(--radius-sm); }
+  .nav-toggle{ display:flex; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <button class="brand" data-view="inicio">
+      <span class="brand-icon">💅</span>
+      <span class="brand-text">Centro de Estética <em>&amp; Moda</em></span>
+    </button>
+
+    <nav class="nav-menu" id="navMenu">
+      <button class="nav-link" data-view="inicio">Inicio</button>
+      <button class="nav-link" data-view="salon">Salón de Belleza</button>
+      <button class="nav-link" data-view="ropa">Local de Ropa</button>
+      <button class="nav-link" data-view="plaza">Mini Plaza</button>
+      <button class="nav-link" data-view="agenda">Agenda &amp; Turnos</button>
+      <button class="nav-link" data-view="gestion">Panel de Gestión</button>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ INICIO ============ -->
+  <section class="view active" id="view-inicio">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Belleza · Moda · Espacio en familia</span>
+        <h1>Un espacio creado para que disfrutes, te cuides y te expreses <em>— sin dejar a tus hijos atrás.</em> 💜</h1>
+        <p class="lead">Belleza, moda femenina y asesoramiento de imagen profesional en un solo lugar.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-view="agenda">Reservar turno</button>
+          <button class="btn btn-ghost" data-view="ropa">Ver catálogo</button>
+        </div>
+        <button class="badge-pill" data-view="plaza">
+          <span class="badge-pill-icon">👶</span>
+          <span>Mini Plaza Infantil <strong>sin costo adicional</strong></span>
+        </button>
+      </div>
+      <div class="hero-collage" aria-hidden="true">
+        <div class="collage-img collage-img--1" id="collageImg1"></div>
+        <div class="collage-img collage-img--2" id="collageImg2"></div>
+        <div class="collage-badge">
+          <svg viewBox="0 0 100 100" class="collage-badge-svg">
+            <circle cx="50" cy="50" r="48" class="mark-ring"/>
+          </svg>
+          <span>💅</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="floorplan-wrap">
+      <div class="section-heading">
+        <span class="eyebrow">Plano del local</span>
+        <h2>Recorré el local</h2>
+        <p>Tocá una zona del plano para entrar — así está distribuido el espacio.</p>
+      </div>
+
+      <div class="floorplan" id="floorplan">
+        <button class="room room--entrada" data-view="agenda" style="grid-area: entrada;">
+          <span class="room-tag">Entrada</span>
+        </button>
+
+        <button class="room room--plaza" data-view="plaza" style="grid-area: plaza;">
+          <span class="room-icon">🧸</span>
+          <span class="room-tag">Mini Plaza <small>+ Sanitarios</small></span>
+        </button>
+
+        <button class="room room--recepcion" data-view="agenda" style="grid-area: recepcion;">
+          <span class="room-icon">📋</span>
+          <span class="room-tag">Recepción <small>&amp; Asesoría</small></span>
+          <span class="room-door" data-view="gestion" title="Panel de Gestión (staff)">⚙️</span>
+        </button>
+
+        <button class="room room--ropa" data-view="ropa" style="grid-area: ropa;">
+          <span class="room-icon">👗</span>
+          <span class="room-tag">Local de Ropa <small>Percheros &amp; vestidores</small></span>
+        </button>
+
+        <button class="room room--salon" data-view="salon" style="grid-area: salon;">
+          <span class="room-icon">💇‍♀️</span>
+          <span class="room-tag">Salón de Belleza <small>Uñas · Pelo · Pestañas</small></span>
+        </button>
+      </div>
+      <p class="floorplan-hint">Tip: también podés usar el menú de arriba para moverte más rápido.</p>
+    </div>
+  </section>
+
+  <!-- ============ SALÓN DE BELLEZA ============ -->
+  <section class="view" id="view-salon">
+    <div class="section-heading">
+      <span class="eyebrow">💅 Salón de Belleza</span>
+      <h2>Elegí tu especialidad</h2>
+      <p>Cada área tiene su propio sitio con catálogo completo y reservas.</p>
+    </div>
+
+    <div class="acceso-grid" id="salonGrid"></div>
+  </section>
+
+  <!-- ============ LOCAL DE ROPA ============ -->
+  <section class="view" id="view-ropa">
+    <div class="section-heading">
+      <span class="eyebrow">👗 Local de Ropa Femenina</span>
+      <h2>Entrá al local, pedí asesoría o buscá tu perfume</h2>
+      <p>Tres espacios, cada uno con su propio sitio.</p>
+    </div>
+
+    <div class="acceso-grid" id="ropaGrid"></div>
+  </section>
+
+  <!-- ============ MINI PLAZA ============ -->
+  <section class="view" id="view-plaza">
+    <div class="section-heading">
+      <span class="eyebrow">👶 Mini Plaza Infantil</span>
+      <h2>Cumpleaños y golosinas</h2>
+      <p>Dos espacios para los más chicos, cada uno con su propio sitio.</p>
+    </div>
+
+    <div class="acceso-grid" id="plazaGrid"></div>
+  </section>
+
+  <!-- ============ AGENDA & TURNOS ============ -->
+  <section class="view" id="view-agenda">
+    <div class="section-heading">
+      <span class="eyebrow">📅 Agenda &amp; Turnos</span>
+      <h2>Reservá tu turno</h2>
+      <p>Elegí área, día y horario. Lunes a sábado, de 09:00 a 18:00 hs.</p>
+    </div>
+
+    <div class="booking">
+      <div class="booking-step">
+        <h3>1. Área</h3>
+        <div class="chips" id="areaChips">
+          <button class="chip active" data-area="Manicura">💅 Manicura</button>
+          <button class="chip" data-area="Peluquería">✂️ Peluquería</button>
+          <button class="chip" data-area="Pestañas">👁️ Pestañas</button>
+        </div>
+      </div>
+
+      <div class="booking-step">
+        <h3>2. Día</h3>
+        <div class="chips" id="dayChips">
+          <button class="chip active" data-day="Lunes">Lun</button>
+          <button class="chip" data-day="Martes">Mar</button>
+          <button class="chip" data-day="Miércoles">Mié</button>
+          <button class="chip" data-day="Jueves">Jue</button>
+          <button class="chip" data-day="Viernes">Vie</button>
+          <button class="chip" data-day="Sábado">Sáb</button>
+        </div>
+      </div>
+
+      <div class="booking-step">
+        <h3>3. Horario</h3>
+        <div class="slots" id="slotGrid"></div>
+      </div>
+
+      <div class="booking-step" id="datosStep" hidden>
+        <h3>4. Tus datos</h3>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="bookingNombre">Nombre y apellido</label>
+            <input type="text" id="bookingNombre" placeholder="Ej: Lucía Fernández" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="bookingDni">DNI</label>
+            <input type="text" id="bookingDni" placeholder="Ej: 32.456.789" inputmode="numeric" autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-summary" id="bookingSummary" hidden>
+        <p>Vas a reservar <strong id="summaryText"></strong></p>
+        <button class="btn btn-primary" id="confirmBooking">Confirmar reserva</button>
+      </div>
+    </div>
+
+    <div class="my-bookings">
+      <h3>Mis turnos reservados</h3>
+      <ul id="bookingList" class="booking-list">
+        <li class="empty-state">Todavía no reservaste ningún turno.</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============ PANEL DE GESTIÓN ============ -->
+  <section class="view" id="view-gestion">
+    <div class="section-heading">
+      <span class="eyebrow">⚙️ Panel de Gestión</span>
+      <h2>Fidelización &amp; stock</h2>
+      <p>Espacio de uso interno para el equipo del centro.</p>
+    </div>
+
+    <div class="tabs" id="gestionTabs">
+      <button class="tab active" data-gtab="turnos">📅 Turnos por DNI</button>
+      <button class="tab" data-gtab="fidelizacion">💎 Fidelización</button>
+      <button class="tab" data-gtab="stock">📦 Stock de ropa</button>
+    </div>
+
+    <div class="tab-panels">
+      <!-- Turnos por DNI -->
+      <div class="tab-panel active" data-gpanel="turnos">
+        <div class="loyalty-card">
+          <div class="loyalty-search">
+            <label for="dniSearchInput">Buscar turnos por DNI</label>
+            <div class="search-row">
+              <input type="text" id="dniSearchInput" placeholder="Ej: 32.456.789" inputmode="numeric">
+              <button class="btn btn-primary" id="dniSearchBtn">Buscar</button>
+            </div>
+          </div>
+          <ul id="dniResultList" class="booking-list" style="margin-top:20px;">
+            <li class="empty-state">Ingresá un DNI para ver sus turnos reservados.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fidelización -->
+      <div class="tab-panel" data-gpanel="fidelizacion">
+        <div class="loyalty-card">
+          <div class="loyalty-search">
+            <label for="clientInput">Nombre o DNI de la clienta</label>
+            <div class="search-row">
+              <input type="text" id="clientInput" placeholder="Ej: Lucía Fernández">
+              <button class="btn btn-primary" id="clientSearchBtn">Buscar</button>
+            </div>
+          </div>
+
+          <div class="loyalty-result" id="loyaltyResult" hidden>
+            <p class="loyalty-name" id="loyaltyName"></p>
+            <div class="progress-track">
+              <div class="progress-fill" id="loyaltyFill"></div>
+              <div class="progress-dots" id="loyaltyDots"></div>
+            </div>
+            <p class="loyalty-msg" id="loyaltyMsg"></p>
+          </div>
+        </div>
+
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <h4>Programa Uñas &amp; Pestañas</h4>
+            <p>Acumulás 1 visita por servicio de manicura o pestañas. Al llegar a tu 5.° servicio, recibís 1 servicio gratis a elección <em>(excluye peluquería)</em>.</p>
+          </article>
+          <article class="benefit-card">
+            <h4>Local de Ropa</h4>
+            <p>Compras desde $50.000 incluyen 2 semanas de asesoramiento de imagen gratuito: armado de outfits, paleta de colores y guardarropa.</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div class="tab-panel" data-gpanel="stock">
+        <div class="table-wrap">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="stockBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Centro de Estética &amp; Moda 💅 · Lunes a sábado, 09:00–18:00 hs</p>
+</footer>
+
+<!-- Visor a pantalla completa para sitios embebidos (perfumería) -->
+<div class="sitio-overlay" id="sitioOverlay" hidden>
+  <div class="sitio-bar">
+    <button class="sitio-volver" id="sitioVolver">← Volver al centro</button>
+    <span class="sitio-titulo" id="sitioTitulo"></span>
+  </div>
+  <iframe class="sitio-frame" id="sitioFrame" title="Sitio"></iframe>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================================================================
+   CENTRO DE ESTÉTICA & MODA — lógica de la app (una sola página)
+=================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---------------------------------------------------------------
+     GENERADOR DE ILUSTRACIONES SVG
+     100% locales: no dependen de internet ni de ningún servidor,
+     así que siempre se ven. Cada una es un degradé + formas suaves
+     + un ícono central, con la paleta de la marca.
+  --------------------------------------------------------------- */
+  const PALETAS = [
+    ['#F7E9EC', '#F0CDD4', '#C06E82'], // rosa
+    ['#F2F7EF', '#DCEAD4', '#7C9976'], // salvia
+    ['#FBEFE3', '#F0DCB8', '#C6A15B'], // dorado
+    ['#F1E7ED', '#E3CFDD', '#93677E'], // ciruela
+  ];
+
+  function hashStr(str){
+    let h = 0;
+    for(let i=0;i<str.length;i++) h = (h*31 + str.charCodeAt(i)) >>> 0;
+    return h;
+  }
+
+  function illoSVG(emoji, seedStr, rounded){
+    const h = hashStr(seedStr);
+    const [c1, c2, accent] = PALETAS[h % PALETAS.length];
+    const rot = (h % 9) - 4;
+    const uid = 'g' + h;
+    const r = rounded ? '18' : '0';
+    return `
+<svg viewBox="0 0 200 150" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+  <defs>
+    <radialGradient id="${uid}" cx="32%" cy="26%" r="85%">
+      <stop offset="0%" stop-color="${c1}"/>
+      <stop offset="100%" stop-color="${c2}"/>
+    </radialGradient>
+  </defs>
+  <rect width="200" height="150" rx="${r}" fill="url(#${uid})"/>
+  <circle cx="172" cy="18" r="34" fill="${accent}" opacity="0.16"/>
+  <circle cx="14" cy="138" r="28" fill="${accent}" opacity="0.16"/>
+  <circle cx="100" cy="72" r="46" fill="none" stroke="${accent}" stroke-width="1.4" stroke-dasharray="3 6" opacity="0.55"/>
+  <circle cx="168" cy="128" r="4" fill="${accent}" opacity="0.5"/>
+  <circle cx="26" cy="24" r="3" fill="${accent}" opacity="0.5"/>
+  <text x="100" y="90" text-anchor="middle" font-size="50" transform="rotate(${rot} 100 72)">${emoji}</text>
+</svg>`.trim();
+  }
+
+  function heroIlloSVG(emoji, seedStr){
+    return illoSVG(emoji, seedStr, false);
+  }
+
+  /* ---------------------------------------------------------------
+     0. NAVEGACIÓN ENTRE VISTAS
+  --------------------------------------------------------------- */
+  const views = document.querySelectorAll('.view');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navMenu = document.getElementById('navMenu');
+  const navToggle = document.getElementById('navToggle');
+
+  function showView(name){
+    views.forEach(v => v.classList.toggle('active', v.id === `view-${name}`));
+    navLinks.forEach(l => l.classList.toggle('active', l.dataset.view === name));
+    navMenu.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showView(el.dataset.view);
+    });
+  });
+
+  navToggle.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+
+  /* ---------------------------------------------------------------
+     TOAST
+  --------------------------------------------------------------- */
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  /* ---------------------------------------------------------------
+     HERO — collage ilustrado
+  --------------------------------------------------------------- */
+  document.getElementById('collageImg1').innerHTML = heroIlloSVG('💇‍♀️', 'hero-1');
+  document.getElementById('collageImg2').innerHTML = heroIlloSVG('👗', 'hero-2');
+
+  /* ---------------------------------------------------------------
+     MINI PLAZA — las dos páginas van embebidas acá adentro, así
+     pagina2.html funciona sola, sin depender de archivos aparte.
+     (index3.html = cumpleaños · index2.html = golosinas)
+  --------------------------------------------------------------- */
+  const CUMPLE_HTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salón de Fiestas Infantiles - ¡El Mejor Cumpleaños!</title>
+    <style>
+        /* --- ESTILOS GENERALES Y PALETA FESTIVA --- */
+        :root {
+            --primary: #ff007f;
+            --secondary: #ffbe0b;
+            --accent: #3a86ff;
+            --purple: #8338ec;
+            --green: #06d6a0;
+            --bg-light: #fff8fc;
+            --dark: #2b2d42;
+            --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font); background-color: var(--bg-light); color: var(--dark); line-height: 1.6; }
+
+        /* --- HEADER & NAVEGACIÓN --- */
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+
+        nav a { margin-left: 1.2rem; text-decoration: none; color: var(--dark); font-weight: 700; transition: 0.3s; font-size: 0.95rem; }
+        nav a:hover { color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 { font-size: 3rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); margin-bottom: 0.8rem; }
+        .hero p { font-size: 1.3rem; max-width: 650px; margin-bottom: 1.5rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.3s transform, 0.3s background-color;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.4);
+        }
+
+        .btn:hover { background-color: #d6006b; transform: translateY(-3px); }
+
+        .container { max-width: 1100px; margin: 3.5rem auto; padding: 0 1.5rem; }
+        .section-title { text-align: center; margin-bottom: 2rem; font-size: 2.2rem; color: var(--purple); font-weight: 800; }
+
+        /* --- PAQUETES Y COMBOS --- */
+        .packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .pkg-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 3px solid transparent;
+            transition: 0.3s;
+            text-align: center;
+            position: relative;
+        }
+        .pkg-card:hover { border-color: var(--secondary); transform: translateY(-5px); }
+        .pkg-card.popular { border-color: var(--primary); }
+        .badge { position: absolute; top: -12px; right: 20px; background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .pkg-title { font-size: 1.5rem; color: var(--purple); margin-bottom: 1rem; }
+        .pkg-list { list-style: none; text-align: left; margin: 1.5rem 0; }
+        .pkg-list li { margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+
+        /* --- INTERACTIVO: CALCULADORA DE PRESUPUESTO --- */
+        .calc-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 2px dashed var(--accent);
+        }
+
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+        .calc-group label { display: block; font-weight: bold; margin-bottom: 0.5rem; color: var(--dark); }
+        .calc-group select, .calc-group input { width: 100%; padding: 0.8rem; border-radius: 12px; border: 1px solid #ccc; font-size: 1rem; }
+
+        .calc-result {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--purple);
+            border: 2px solid var(--purple);
+        }
+
+        /* --- GALERÍA DE ATRACCIONES CON FILTROS --- */
+        .filter-btns { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn { background: white; border: 2px solid var(--accent); color: var(--accent); padding: 0.5rem 1.2rem; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: white; }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .attraction-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .attraction-card img { width: 100%; height: 200px; object-fit: cover; }
+        .attraction-info { padding: 1rem; text-align: center; font-weight: bold; color: var(--dark); }
+
+        /* --- CONTACTO Y DISPONIBILIDAD --- */
+        .booking-section { background: white; padding: 2.5rem; border-radius: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); max-width: 700px; margin: 0 auto; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 0.4rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border-radius: 10px; border: 1px solid #ddd; font-size: 1rem; font-family: inherit; }
+
+        footer { background: var(--purple); color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            nav a { margin: 0 0.5rem; font-size: 0.85rem; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">🎉 FIESTA <span>KIDS</span></div>
+        <nav>
+            <a href="#paquetes">Paquetes</a>
+            <a href="#calculadora">Calculadora</a>
+            <a href="#atracciones">Atracciones</a>
+            <a href="#contacto">Reservar</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>¡El Cumpleaños Soñado Empieza Aquí!</h1>
+        <p>Juegos, animación, diversión garantizada y la tranquilidad que los padres necesitan.</p>
+        <a href="#calculadora" class="btn">Calcular mi Presupuesto</a>
+    </section>
+
+    <!-- PAQUETES Y COMBOS -->
+    <section id="paquetes" class="container">
+        <h2 class="section-title">Nuestros Paquetes de Fiestas</h2>
+        <div class="packages">
+            <div class="pkg-card">
+                <h3 class="pkg-title">Combo Básico</h3>
+                <p>Ideal para festejos íntimos y tranquilos.</p>
+                <ul class="pkg-list">
+                    <li>🎈 2.5 Horas de Salón</li>
+                    <li>🎈 Hasta 20 Niños</li>
+                    <li>🎈 Plaza Blanda e Inflable</li>
+                    <li>🎈 Camareras y Vaajilla básica</li>
+                </ul>
+            </div>
+
+            <div class="pkg-card popular">
+                <span class="badge">MÁS ELEGIDO</span>
+                <h3 class="pkg-title">Combo Super Fiesta</h3>
+                <p>¡Toda la diversión completa sin preocupaciones!</p>
+                <ul class="pkg-list">
+                    <li>⭐ 3 Horas de Salón</li>
+                    <li>⭐ Hasta 30 Niños + Adultos</li>
+                    <li>⭐ Animación Temática y Juegos</li>
+                    <li>⭐ Menú Infantil y Bebidas libre</li>
+                    <li>⭐ Pista de Baile & Luces LED</li>
+                </ul>
+            </div>
+
+            <div class="pkg-card">
+                <h3 class="pkg-title">Combo VIP Premium</h3>
+                <p>Una experiencia mágica e inolvidable a todo lujo.</p>
+                <ul class="pkg-list">
+                    <li>👑 4 Horas de Salón</li>
+                    <li>👑 Niños Ilimitados</li>
+                    <li>👑 Show Especial o Personaje</li>
+                    <li>👑 Catering Dulce & Salado Completo</li>
+                    <li>👑 Máquina de Burbujas y Humo</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVO: CALCULADORA DE PRESUPUESTO -->
+    <section id="calculadora" class="container">
+        <h2 class="section-title">🧮 Simula el Presupuesto de tu Fiesta</h2>
+        <div class="calc-box">
+            <div class="calc-grid">
+                <div class="calc-group">
+                    <label>Selecciona el Paquete:</label>
+                    <select id="calc-pkg" onchange="calculateTotal()">
+                        <option value="150000">Combo Básico ($150.000)</option>
+                        <option value="250000" selected>Combo Super Fiesta ($250.000)</option>
+                        <option value="380000">Combo VIP Premium ($380.000)</option>
+                    </select>
+                </div>
+
+                <div class="calc-group">
+                    <label>Invitados extra (Niños):</label>
+                    <input type="number" id="calc-kids" value="0" min="0" onchange="calculateTotal()" onkeyup="calculateTotal()">
+                    <small style="color: #666;">($3.000 por niño extra)</small>
+                </div>
+
+                <div class="calc-group">
+                    <label>Servicios Adicionales:</label>
+                    <select id="calc-extra" onchange="calculateTotal()">
+                        <option value="0">Ninguno</option>
+                        <option value="25000">Candy Bar Temático (+$25.000)</option>
+                        <option value="35000">Robot LED / Show Especial (+$35.000)</option>
+                        <option value="55000">Servicio Completo Adicional (+$55.000)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="calc-result">
+                Estimado Total: <span id="total-price">$250.000</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA DE ATRACCIONES CON FILTROS -->
+    <section id="atracciones" class="container">
+        <h2 class="section-title">🏰 Conoce Nuestro Salón</h2>
+        <div class="filter-btns">
+            <button class="filter-btn active" onclick="filterGallery('todos')">Todos</button>
+            <button class="filter-btn" onclick="filterGallery('juegos')">Juegos & Inflables</button>
+            <button class="filter-btn" onclick="filterGallery('tecnologia')">Tecnología & Luces</button>
+            <button class="filter-btn" onclick="filterGallery('comida')">Sectores / Catering</button>
+        </div>
+
+        <div class="gallery">
+            <div class="attraction-card" data-category="juegos">
+                <img src="https://images.unsplash.com/photo-1566454825481-4e48f8014562?auto=format&fit=crop&w=500&q=80" alt="Plaza Blanda">
+                <div class="attraction-info">Plaza Blanda e Inflables</div>
+            </div>
+
+            <div class="attraction-card" data-category="tecnologia">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=80" alt="Pista de Baile">
+                <div class="attraction-info">Pista con Luces & DJ</div>
+            </div>
+
+            <div class="attraction-card" data-category="juegos">
+                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80" alt="Zona de Juegos">
+                <div class="attraction-info">Cancha de Fútbol / Multijuegos</div>
+            </div>
+
+            <div class="attraction-card" data-category="comida">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=500&q=80" alt="Mesa de Dulces">
+                <div class="attraction-info">Sector Candy Bar</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVA / WHATSAPP -->
+    <section id="contacto" class="container">
+        <h2 class="section-title">📅 Consulta Disponibilidad y Agenda tu Fecha</h2>
+        <div class="booking-section">
+            <form onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label>Nombre y Apellido del Madre/Padre</label>
+                    <input type="text" id="form-name" placeholder="Ej: María González" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nombre y Edad del Cumpleañero/a</label>
+                    <input type="text" id="form-kid" placeholder="Ej: Mateo (cumple 5)" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha Deseada para el Evento</label>
+                    <input type="date" id="form-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Turno de Preferencia</label>
+                    <select id="form-shift" required>
+                        <option value="Mañana (11:00 a 14:00 hs)">Turno Mañana (11:00 a 14:00 hs)</option>
+                        <option value="Tarde (15:00 a 18:00 hs)">Turno Tarde (15:00 a 18:00 hs)</option>
+                        <option value="Noche (19:00 a 22:00 hs)">Turno Noche (19:00 a 22:00 hs)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Mensaje o Comentarios Adicionales</label>
+                    <textarea id="form-msg" rows="3" placeholder="¿Tienes alguna consulta sobre la animación o menú?"></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; background-color: var(--green);">💬 Consultar por WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 🎉 FIESTA KIDS - Salón de Eventos Infantiles</p>
+        <p><small>¡Creamos momentos mágicos para toda la familia!</small></p>
+    </footer>
+
+    <!-- LÓGICA DE INTERACTIVIDAD (JAVASCRIPT) -->
+    <script>
+        // 1. CALCULADORA DINÁMICA DE PRESUPUESTO
+        function calculateTotal() {
+            const basePkg = parseInt(document.getElementById('calc-pkg').value);
+            const extraKids = parseInt(document.getElementById('calc-kids').value) || 0;
+            const extraService = parseInt(document.getElementById('calc-extra').value);
+
+            const total = basePkg + (extraKids * 3000) + extraService;
+            
+            // Formatear precio
+            document.getElementById('total-price').innerText = '$' + total.toLocaleString('es-AR');
+        }
+
+        // 2. FILTRADO DE LA GALERÍA
+        function filterGallery(category) {
+            const cards = document.querySelectorAll('.attraction-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'todos' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 3. ENVÍO DE CONSULTA A WHATSAPP
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const kid = document.getElementById('form-kid').value;
+            const date = document.getElementById('form-date').value;
+            const shift = document.getElementById('form-shift').value;
+            const msg = document.getElementById('form-msg').value;
+
+            // Reemplazar con el número del salón de eventos (con código de país)
+            const phone = "5491112345678";
+
+            const text = \`¡Hola! 👋 Quisiera consultar la disponibilidad del salón. 
+- *Contacto:* \${name}
+- *Cumpleañero/a:* \${kid}
+- *Fecha:* \${date}
+- *Turno:* \${shift}
+- *Mensaje:* \${msg}\`;
+
+            const url = \`https://wa.me/\${phone}?text=\${encodeURIComponent(text)}\`;
+            window.open(url, '_blank');
+        }
+    <\/script>
+</body>
+</html>`;
+
+  const GOLOSINAS_HTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Dulce - ¡La Tienda Más Divertida!</title>
+    <style>
+        /* --- ESTILOS GENERALES Y PALETA DIVERTIDA --- */
+        :root {
+            --pink: #ff477e;
+            --purple: #7209b7;
+            --yellow: #ffb703;
+            --cyan: #4cc9f0;
+            --light-bg: #fff0f5;
+            --font: 'Comic Sans MS', 'Chalkboard SE', 'Fredoka', cursive, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: var(--font); 
+            background-color: var(--light-bg); 
+            color: #333; 
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAVEGACIÓN --- */
+        header {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            color: var(--yellow); 
+            text-shadow: 2px 2px 0px #000; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav a { 
+            margin-left: 1rem; 
+            text-decoration: none; 
+            color: white; 
+            font-weight: bold; 
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        nav a:hover { background: var(--yellow); color: #000; transform: scale(1.1); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .hero h1 { 
+            font-size: 3.2rem; 
+            text-shadow: 3px 3px 0px var(--pink), 6px 6px 0px #000; 
+            animation: bounce 2s infinite;
+        }
+
+        .hero p { font-size: 1.5rem; background: rgba(0,0,0,0.6); padding: 0.5rem 1.5rem; border-radius: 25px; margin-top: 1rem; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container { max-width: 1100px; margin: 3rem auto; padding: 0 1.5rem; }
+
+        .section-title { 
+            text-align: center; 
+            margin-bottom: 2rem; 
+            font-size: 2.3rem; 
+            color: var(--purple);
+            text-shadow: 1px 1px 0px var(--yellow);
+        }
+
+        /* --- INTERACTIVO 1: RETA DULCE / JUEGO --- */
+        .game-card {
+            background: white;
+            border: 4px dashed var(--pink);
+            border-radius: 25px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .roulette-box {
+            font-size: 4rem;
+            margin: 1.5rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--yellow);
+            border-radius: 20px;
+            border: 3px solid #000;
+        }
+
+        .btn-fun {
+            background: var(--pink);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 0px #b5179e;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-fun:active { transform: translateY(5px); box-shadow: none; }
+        .btn-fun:hover { background: #f72585; }
+
+        /* --- INTERACTIVO 2: ARMA TU BOLSA DULCE --- */
+        .bag-builder {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .bag-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            border: 2px solid #eee;
+        }
+
+        .qty-btn {
+            background: var(--cyan);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .bag-summary {
+            background: var(--purple);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* --- CATÁLOGO CON FILTROS --- */
+        .filters { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--purple);
+            color: var(--purple);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--purple); color: white; }
+
+        .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+        .candy-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            padding-bottom: 1rem;
+            border: 3px solid #f0f0f0;
+            transition: 0.3s;
+        }
+        .candy-card:hover { transform: translateY(-8px) rotate(1deg); border-color: var(--yellow); }
+        .candy-card img { width: 100%; height: 180px; object-fit: cover; }
+        .candy-title { font-size: 1.2rem; margin: 0.5rem 0; color: var(--purple); }
+        .candy-price { font-size: 1.1rem; color: var(--pink); font-weight: bold; }
+
+        /* --- CONTACTO / PEDIDOS --- */
+        .order-zone {
+            background: var(--yellow);
+            border-radius: 25px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 4px solid #000;
+        }
+
+        .order-zone input, .order-zone select {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.8rem;
+            margin: 0.5rem 0 1rem;
+            border-radius: 12px;
+            border: 2px solid #000;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        footer {
+            background: var(--purple);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; }
+            .hero h1 { font-size: 2.2rem; }
+            nav a { margin: 0.2rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">🍬 Mundo Dulce</div>
+        <nav>
+            <a href="#ruleta">🎮 Juego Dulce</a>
+            <a href="#mi-bolsa">🛍️ Creador de Bolsa</a>
+            <a href="#catalogo">🍭 Golosinas</a>
+            <a href="#pedir">🚀 Hacer Pedido</a>
+        </nav>
+    </header>
+
+    <!-- HERO / PORTADA -->
+    <section class="hero">
+        <h1>¡El Paraíso de los Dulces!</h1>
+        <p>Golosinas mágicas, chocolates y gomitas para sonreír todo el día 🌈</p>
+    </section>
+
+    <!-- INTERACTIVO 1: LA RULETA DULCE -->
+    <section id="ruleta" class="container">
+        <h2 class="section-title">🎰 ¿Qué golosina te toca hoy?</h2>
+        <div class="game-card">
+            <p>¡Presiona el botón mágico para descubrir cuál es tu dulce de la suerte!</p>
+            <div class="roulette-box" id="roulette-result">❓</div>
+            <button class="btn-fun" onclick="spinRoulette()">¡Girar la Suerte!</button>
+        </div>
+    </section>
+
+    <!-- INTERACTIVO 2: ARMA TU BOLSA MIXTA -->
+    <section id="mi-bolsa" class="container">
+        <h2 class="section-title">🛍️ Arma tu Bolsa de Golosinas Personalizada</h2>
+        <div class="bag-builder">
+            <div class="items-list">
+                <h3>Elige lo que quieres sumar:</h3><br>
+                
+                <div class="bag-item">
+                    <span>🐻 Gomitas Ositos</span>
+                    <div>
+                        <button class="qty-btn" onclick="updateQty('gomitas', -1)">-</button>
+                        <span id="qty-gomitas" style="margin: 0 10px; font-weight:bold;">0</span>
+                        <button class="qty-btn" onclick="updateQty('gomitas', 1)">+</button>
+                    </div>
+                </div><br>
+
+                <div class="bag-item">
+                    <span>🍭 Chupetines</span>
+                    <div>
+                        <button class="qty-btn" onclick="updateQty('paletas', -1)">-</button>
+                        <span id="qty-paletas" style="margin: 0 10px; font-weight:bold;">0</span>
+                        <button class="qty-btn" onclick="updateQty('paletas', 1)">+</button>
+                    </div>
+                </div><br>
+
+                <div class="bag-item">
+                    <span>🍫 Chocolates de Leche</span>
+                    <div>
+                        <button class="qty-btn" onclick="updateQty('chocolates', -1)">-</button>
+                        <span id="qty-chocolates" style="margin: 0 10px; font-weight:bold;">0</span>
+                        <button class="qty-btn" onclick="updateQty('chocolates', 1)">+</button>
+                    </div>
+                </div><br>
+
+                <div class="bag-item">
+                    <span>⚡ Caramelos Ácidos</span>
+                    <div>
+                        <button class="qty-btn" onclick="updateQty('acidos', -1)">-</button>
+                        <span id="qty-acidos" style="margin: 0 10px; font-weight:bold;">0</span>
+                        <button class="qty-btn" onclick="updateQty('acidos', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bag-summary">
+                <div>
+                    <h3>Tu Bolsa Mágica ✨</h3>
+                    <hr style="margin: 1rem 0; border-color: rgba(255,255,255,0.3);">
+                    <p style="font-size: 1.2rem;">Total Golosinas: <span id="total-items">0</span> unidades</p>
+                </div>
+                <button class="btn-fun" style="background: var(--yellow); color: #000; margin-top: 1rem;" onclick="sendCustomBag()">¡Pedir esta Bolsa!</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO COMPLETO -->
+    <section id="catalogo" class="container">
+        <h2 class="section-title">🍭 Catálogo de Golosinas</h2>
+        
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterDulces('todos')">Todos</button>
+            <button class="filter-btn" onclick="filterDulces('gomitas')">Gomitas</button>
+            <button class="filter-btn" onclick="filterDulces('chocolates')">Chocolates</button>
+            <button class="filter-btn" onclick="filterDulces('paletas')">Chupetines</button>
+             <button class="filter-btn" onclick="filterDulces('snacks')">Snacks</button>
+             
+        </div>
+
+        <div class="catalog">
+            <div class="candy-card" data-category="gomitas">
+                <img src="https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?auto=format&fit=crop&w=400&q=80" alt="Gomitas">
+                <div class="candy-title">Gomitas Frutales</div>
+                <div class="candy-price">$1000 / paquete</div>
+            </div>
+
+            <div class="candy-card" data-category="chocolates">
+                <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=400&q=80" alt="Chocolates">
+                <div class="candy-title">Monedas de Chocolate</div>
+                <div class="candy-price">$500 c/u</div>
+            </div>
+
+            <div class="candy-card" data-category="chocolates">
+                <img src="kinder.jpg" alt="Chocolates">
+                <div class="candy-title">Chocolate Kinder</div>
+                <div class="candy-price">$2000 c/u</div>
+            </div>
+
+            <div class="candy-card" data-category="paletas">
+                <img src="https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=400&q=80" alt="Paleta">
+                <div class="candy-title">Paleta Arcoíris</div>
+                <div class="candy-price">$1000 c/u</div>
+            </div>
+
+            <div class="candy-card" data-category="snacks">
+                <img src="https://images.unsplash.com/photo-1599599810694-b5b37304c041?auto=format&fit=crop&w=400&q=80" alt="Caramelos">
+                <div class="candy-title">Panchos</div>
+                <div class="candy-price">$1500</div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- FORMULARIO DE PEDIDO RÁPIDO -->
+    <section id="pedir" class="container">
+        <div class="order-zone">
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">🎉 ¡Haz tu pedido rápido!</h2>
+            <p>Escribe tus datos y enviamos tu pedido directo por WhatsApp</p><br>
+            
+            <form onsubmit="sendWhatsAppOrder(event)">
+                <input type="text" id="parent-name" placeholder="Nombre del Adulto / Responsable" required><br>
+                <input type="tel" id="phone-num" placeholder="Número de Celular" required><br>
+                <select id="delivery-type" required>
+                    <option value="">¿Cómo prefieres recibirlo?</option>
+                    <option value="Envío a Domicilio">Envío a Domicilio 🛵</option>
+                    <option value="Retiro en Tienda">Retiro por el Local 🏬</option>
+                </select><br>
+                <button type="submit" class="btn-fun" style="background: #25D366; color: white;">📱 Enviar Pedido por WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>🎉 <strong>Mundo Dulce</strong> - Diversión & Sabores para los más pequeños</p>
+        <p><small>Abierto de Lunes a Sábado de 10:00 a 20:00 hs.</small></p>
+    </footer>
+
+    <!-- INTERACTIVIDAD CON JAVASCRIPT -->
+    <script>
+        // 1. RULETA DULCE INTERACTIVA
+        const sweets = [
+            '🐻 Gomitas de Osito', 
+            '🍫 Barra de Chocolate Mágico', 
+            '🍭 Paleta Gigante de Arcoíris', 
+            '⚡ Caramelos Ácidos Explosivos', 
+            '🍿 Pochoclos / Cotufas Dulces',
+            '🍩 Mini Donas Glaseadas'
+        ];
+
+        function spinRoulette() {
+            const box = document.getElementById('roulette-result');
+            box.style.fontSize = '2rem';
+            box.innerText = "🌀 Girando...";
+            
+            setTimeout(() => {
+                const randomSweet = sweets[Math.floor(Math.random() * sweets.length)];
+                box.innerText = randomSweet;
+                box.style.fontSize = '2.5rem';
+            }, 1000);
+        }
+
+        // 2. CREADOR DE BOLSA PERSONALIZADA
+        const quantities = { gomitas: 0, paletas: 0, chocolates: 0, acidos: 0 };
+
+        function updateQty(item, change) {
+            if (quantities[item] + change >= 0) {
+                quantities[item] += change;
+                document.getElementById(\`qty-\${item}\`).innerText = quantities[item];
+                
+                // Actualizar total
+                const total = Object.values(quantities).reduce((a, b) => a + b, 0);
+                document.getElementById('total-items').innerText = total;
+            }
+        }
+
+        function sendCustomBag() {
+            const total = Object.values(quantities).reduce((a, b) => a + b, 0);
+            if (total === 0) {
+                alert("¡Agrega al menos una golosina a tu bolsa!");
+                return;
+            }
+            alert(\`¡Bolsa creada con éxito con \${total} golosinas! Desplázate hacia abajo para completar tu pedido.\`);
+            document.getElementById('pedir').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 3. FILTROS DEL CATÁLOGO
+        function filterDulces(category) {
+            const cards = document.querySelectorAll('.candy-card');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'todos' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. ENVÍO DE PEDIDO A WHATSAPP
+        function sendWhatsAppOrder(e) {
+            e.preventDefault();
+            const name = document.getElementById('parent-name').value;
+            const delivery = document.getElementById('delivery-type').value;
+
+            // Reemplaza este número con el número real de tu negocio (incluye código de país)
+            const phone = "5491112345678"; 
+
+            const text = \`¡Hola Mundo Dulce! 👋 Soy \${name}. Me gustaría realizar un pedido. Opción de entrega: \${delivery}. Bolsa personalizada: \${quantities.gomitas} Gomitas, \${quantities.paletas} Paletas, \${quantities.chocolates} Chocolates, \${quantities.acidos} Caramelos Ácidos.\`;
+
+            const url = \`https://wa.me/\${phone}?text=\${encodeURIComponent(text)}\`;
+            window.open(url, '_blank');
+        }
+    <\/script>
+</body>
+</html>`;
+
+  /* ---------------------------------------------------------------
+     VISOR — muestra un sitio embebido a pantalla completa
+  --------------------------------------------------------------- */
+  const sitioOverlay = document.getElementById('sitioOverlay');
+  const sitioFrame   = document.getElementById('sitioFrame');
+  const sitioTitulo  = document.getElementById('sitioTitulo');
+
+  function abrirSitioEmbebido(titulo, html){
+    sitioTitulo.textContent = titulo;
+    sitioFrame.srcdoc = html;
+    sitioOverlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function cerrarSitioEmbebido(){
+    sitioOverlay.hidden = true;
+    sitioFrame.srcdoc = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('sitioVolver').addEventListener('click', cerrarSitioEmbebido);
+  document.addEventListener('keydown', ev => {
+    if(ev.key === 'Escape' && !sitioOverlay.hidden) cerrarSitioEmbebido();
+  });
+
+  /* ---------------------------------------------------------------
+     1 + 2. ACCESOS A LOS SITIOS DE CADA RUBRO
+
+     ⬇️ ACÁ SE EDITAN TODOS LOS LINKS. Pegá la URL que te da base44 al
+        publicar cada app. Si dejás una url vacía (''), la tarjeta se
+        muestra como "sitio en preparación" y no lleva a ningún error.
+        index.html (perfumería) tiene que estar en la misma carpeta.
+  --------------------------------------------------------------- */
+  const SITIOS_SALON = [
+    {
+      key:  'unas',
+      titulo: 'Manicura & Uñas',
+      desc: 'Esmaltado, semipermanente, esculpidas, nail art y spa de manos.',
+      e:    '💅',
+      url:  'https://aurum-nail-studio.base44.app'
+    },
+    {
+      key:  'pelo',
+      titulo: 'Peluquería & Peinados',
+      desc: 'Cortes, coloración, mechas, tratamientos y peinados de evento.',
+      e:    '💇\u200d♀️',
+      url:  'https://elixir-ether.base44.app'
+    },
+    {
+      key:  'pestanas',
+      titulo: 'Lifting & Pestañas',
+      desc: 'Lifting, extensiones pelo a pelo y volumen, laminado y diseño de cejas.',
+      e:    '👁️',
+      url:  'https://mirada.base44.app'
+    },
+  ];
+
+  const SITIOS_ROPA = [
+    {
+      key:  'local',
+      titulo: 'Local de Ropa',
+      desc: 'Catálogo completo: casual, de noche, calzado y accesorios.',
+      e:    '👗',
+      url:  'https://sartorianova.base44.app'
+    },
+    {
+      key:  'asesora',
+      titulo: 'Asesora de Imagen',
+      desc: 'Colorimetría, test de estilo y armado de looks a tu medida.',
+      e:    '🪞',
+      url:  'https://accomplished-prisma-style-flow.base44.app'
+    },
+    {
+      key:  'perfumes',
+      titulo: 'Venta de Perfumes',
+      desc: 'Perfumería de autor: lotes chicos, miniaturas de prueba y test de familia olfativa.',
+      e:    '🧴',
+      url:  'https://clever-aura-scent-flow.base44.app'
+    },
+  ];
+
+  const SITIOS_PLAZA = [
+    {
+      key:  'cumples',
+      titulo: 'Cumpleaños',
+      desc: 'Salón de fiestas infantiles: packs, juegos y organización completa.',
+      e:    '🎈',
+      embebido: 'Salón de Fiestas Infantiles',
+      html: 'CUMPLE'
+    },
+    {
+      key:  'golosinas',
+      titulo: 'Golosinas',
+      desc: 'Mundo Dulce: kiosco de golosinas, sorpresitas y mesa dulce.',
+      e:    '🍬',
+      embebido: 'Mundo Dulce',
+      html: 'GOLOSINAS'
+    },
+  ];
+
+  function renderAccesos(contenedorId, lista){
+    const grid = document.getElementById(contenedorId);
+    if(!grid) return;
+
+    grid.innerHTML = lista.map((item, i) => {
+      const activo = Boolean(item.url || item.embebido);
+      return `
+        <article class="acceso-card${activo ? '' : ' is-soon'}" data-i="${i}" ${activo ? 'role="link" tabindex="0"' : ''}>
+          <div class="acceso-photo">${illoSVG(item.e, contenedorId + '-' + item.key, true)}</div>
+          <div class="acceso-body">
+            <h3>${item.titulo}</h3>
+            <p>${item.desc}</p>
+            <span class="acceso-go">${activo ? 'Ver sitio y reservar <span aria-hidden="true">↗</span>' : 'Sitio en preparación'}</span>
+          </div>
+        </article>`;
+    }).join('');
+
+    grid.querySelectorAll('.acceso-card').forEach(card => {
+      const item = lista[Number(card.dataset.i)];
+      const HTML_EMBEBIDO = { CUMPLE: CUMPLE_HTML, GOLOSINAS: GOLOSINAS_HTML };
+      const abrir = () => {
+        if(item.embebido){
+          /* Sitio incluido en este mismo archivo: se abre a pantalla completa. */
+          abrirSitioEmbebido(item.embebido, HTML_EMBEBIDO[item.html]);
+        } else if(item.url){
+          /* Se abre en pestaña nueva para no perder el centro de estética.
+             Si querés que reemplace esta página: window.location.href = item.url; */
+          window.open(item.url, '_blank', 'noopener');
+        } else {
+          toast('Este sitio todavía no está publicado 💫');
+        }
+      };
+      card.addEventListener('click', abrir);
+      card.addEventListener('keydown', ev => {
+        if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); abrir(); }
+      });
+    });
+  }
+
+  renderAccesos('salonGrid', SITIOS_SALON);
+  renderAccesos('ropaGrid',  SITIOS_ROPA);
+  renderAccesos('plazaGrid', SITIOS_PLAZA);
+
+  /* ---------------------------------------------------------------
+     3. AGENDA & TURNOS — con nombre y DNI
+  --------------------------------------------------------------- */
+  const HORAS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+
+  let areaSel = 'Manicura';
+  let daySel  = 'Lunes';
+  let slotSel = null;
+
+  const ocupadosCache = {};
+  function getOcupados(area, day){
+    const key = `${area}-${day}`;
+    if(!ocupadosCache[key]){
+      ocupadosCache[key] = HORAS.filter(() => Math.random() < 0.28);
+    }
+    return ocupadosCache[key];
+  }
+
+  // reservas guardadas en esta sesión: { id, nombre, dni, area, day, hora }
+  const reservas = [];
+
+  const areaChips = document.getElementById('areaChips');
+  const dayChips  = document.getElementById('dayChips');
+  const slotGrid  = document.getElementById('slotGrid');
+  const datosStep = document.getElementById('datosStep');
+  const nombreInput = document.getElementById('bookingNombre');
+  const dniInput = document.getElementById('bookingDni');
+  const summaryBox = document.getElementById('bookingSummary');
+  const summaryText = document.getElementById('summaryText');
+  const bookingList = document.getElementById('bookingList');
+
+  areaChips.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if(!chip) return;
+    areaChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    areaSel = chip.dataset.area;
+    slotSel = null;
+    renderSlots();
+  });
+
+  dayChips.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if(!chip) return;
+    dayChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    daySel = chip.dataset.day;
+    slotSel = null;
+    renderSlots();
+  });
+
+  function slotTaken(hora){
+    const ocupados = getOcupados(areaSel, daySel);
+    const reservadoPorMi = reservas.some(r => r.area===areaSel && r.day===daySel && r.hora===hora);
+    return ocupados.includes(hora) || reservadoPorMi;
+  }
+
+  function renderSlots(){
+    slotGrid.innerHTML = HORAS.map(hora => {
+      const taken = slotTaken(hora);
+      const selected = slotSel === hora;
+      return `<button class="slot ${selected ? 'selected' : ''}" data-hora="${hora}" ${taken ? 'disabled' : ''}>${hora}</button>`;
+    }).join('');
+    updateSummary();
+  }
+
+  slotGrid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.slot');
+    if(!btn || btn.disabled) return;
+    slotSel = btn.dataset.hora;
+    renderSlots();
+  });
+
+  function updateSummary(){
+    if(slotSel){
+      datosStep.hidden = false;
+      summaryText.textContent = `${areaSel} · ${daySel} · ${slotSel} hs`;
+      summaryBox.hidden = false;
+    } else {
+      datosStep.hidden = true;
+      summaryBox.hidden = true;
+    }
+  }
+
+  document.getElementById('confirmBooking').addEventListener('click', () => {
+    if(!slotSel) return;
+    const nombre = nombreInput.value.trim();
+    const dni = dniInput.value.trim();
+    if(!nombre || !dni){
+      toast('Completá tu nombre y DNI para reservar');
+      return;
+    }
+    reservas.push({ id: Date.now(), nombre, dni, area: areaSel, day: daySel, hora: slotSel });
+    toast(`Turno confirmado: ${areaSel} — ${daySel} ${slotSel} hs`);
+    slotSel = null;
+    nombreInput.value = '';
+    dniInput.value = '';
+    renderBookingList();
+    renderSlots();
+  });
+
+  function renderBookingList(){
+    if(reservas.length === 0){
+      bookingList.innerHTML = `<li class="empty-state">Todavía no reservaste ningún turno.</li>`;
+      return;
+    }
+    bookingList.innerHTML = reservas.map(r => `
+      <li>
+        <span>💅 <strong>${r.nombre}</strong> · DNI ${r.dni} · ${r.area} · ${r.day} · ${r.hora} hs</span>
+        <button class="cancel-btn" data-id="${r.id}">Cancelar</button>
+      </li>
+    `).join('');
+  }
+
+  bookingList.addEventListener('click', (e) => {
+    const btn = e.target.closest('.cancel-btn');
+    if(!btn) return;
+    const id = Number(btn.dataset.id);
+    const idx = reservas.findIndex(r => r.id === id);
+    if(idx > -1) reservas.splice(idx, 1);
+    renderBookingList();
+    renderSlots();
+    toast('Turno cancelado');
+  });
+
+  renderSlots();
+  renderBookingList();
+
+  /* ---------------------------------------------------------------
+     4. PANEL DE GESTIÓN — sub-tabs
+  --------------------------------------------------------------- */
+  document.querySelectorAll('#gestionTabs .tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#gestionTabs .tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('#view-gestion .tab-panel').forEach(p =>
+        p.classList.toggle('active', p.dataset.gpanel === tab.dataset.gtab)
+      );
+    });
+  });
+
+  /* ---------------------------------------------------------------
+     4b. BUSCAR TURNOS POR DNI (Panel de Gestión)
+  --------------------------------------------------------------- */
+  const dniSearchInput = document.getElementById('dniSearchInput');
+  const dniResultList = document.getElementById('dniResultList');
+
+  function buscarPorDni(){
+    const dni = dniSearchInput.value.trim();
+    if(!dni){ toast('Ingresá un DNI para buscar'); return; }
+    const encontrados = reservas.filter(r => r.dni.replace(/\D/g,'') === dni.replace(/\D/g,''));
+    if(encontrados.length === 0){
+      dniResultList.innerHTML = `<li class="empty-state">No se encontraron turnos para ese DNI.</li>`;
+      return;
+    }
+    dniResultList.innerHTML = encontrados.map(r => `
+      <li>
+        <span>📅 <strong>${r.nombre}</strong> · DNI ${r.dni} · ${r.area} · ${r.day} · ${r.hora} hs</span>
+      </li>
+    `).join('');
+  }
+
+  document.getElementById('dniSearchBtn').addEventListener('click', buscarPorDni);
+  dniSearchInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') buscarPorDni(); });
+
+  /* ---------------------------------------------------------------
+     5. FIDELIZACIÓN — tracker de visitas
+  --------------------------------------------------------------- */
+  const clientesDemo = {
+    'lucia fernandez': 3,
+    'maria gomez': 5,
+    'sofia romero': 1,
+  };
+
+  function hashVisits(str){
+    let h = 0;
+    for(let i=0; i<str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    return h % 5;
+  }
+
+  const clientInput = document.getElementById('clientInput');
+  const loyaltyResult = document.getElementById('loyaltyResult');
+  const loyaltyName = document.getElementById('loyaltyName');
+  const loyaltyFill = document.getElementById('loyaltyFill');
+  const loyaltyDots = document.getElementById('loyaltyDots');
+  const loyaltyMsg = document.getElementById('loyaltyMsg');
+
+  function buscarCliente(){
+    const raw = clientInput.value.trim();
+    if(!raw){ toast('Ingresá un nombre o DNI'); return; }
+    const key = raw.toLowerCase();
+    const visitas = clientesDemo[key] !== undefined ? clientesDemo[key] : hashVisits(key);
+
+    loyaltyName.textContent = raw;
+    const pct = Math.min(visitas, 5) / 5 * 100;
+    loyaltyFill.style.width = pct + '%';
+    loyaltyDots.innerHTML = [1,2,3,4,5].map(n => `<span>${n <= visitas ? '●' : '○'}</span>`).join('');
+
+    if(visitas >= 5){
+      loyaltyMsg.textContent = '¡Felicitaciones! Tenés 1 servicio gratis a elección para tu próxima visita 🎉';
+    } else {
+      const faltan = 5 - visitas;
+      loyaltyMsg.textContent = `Llevás ${visitas} de 5 servicios · Te ${faltan === 1 ? 'falta' : 'faltan'} ${faltan} para tu premio gratis`;
+    }
+    loyaltyResult.hidden = false;
+  }
+
+  document.getElementById('clientSearchBtn').addEventListener('click', buscarCliente);
+  clientInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') buscarCliente(); });
+
+  /* ---------------------------------------------------------------
+     6. STOCK DE ROPA — panel administrativo (con ilustración)
+  --------------------------------------------------------------- */
+  const stock = [
+    { id:1,  nombre:'Vestido Midi Floral',       cat:'Noche',      precio:45000, stock:6, e:'👗' },
+    { id:2,  nombre:'Blazer Oversize Beige',     cat:'Casual',     precio:38000, stock:4, e:'🧥' },
+    { id:3,  nombre:'Sandalias Doradas Taco',    cat:'Calzado',    precio:27000, stock:2, e:'👡' },
+    { id:4,  nombre:'Cartera Mini Estructurada', cat:'Accesorios', precio:19500, stock:9, e:'👛' },
+    { id:5,  nombre:'Pantalón Wide Leg Lino',    cat:'Casual',     precio:32000, stock:0, e:'👖' },
+    { id:6,  nombre:'Vestido de Fiesta Satén',   cat:'Noche',      precio:58000, stock:3, e:'✨' },
+    { id:7,  nombre:'Stiletto Nude',             cat:'Calzado',    precio:34000, stock:5, e:'👠' },
+    { id:8,  nombre:'Pañuelo de Seda Estampado', cat:'Accesorios', precio:12000, stock:7, e:'🧣' },
+    { id:9,  nombre:'Jean Mom Fit',              cat:'Casual',     precio:29000, stock:1, e:'👖' },
+    { id:10, nombre:'Botineta Cuero Cognac',     cat:'Calzado',    precio:39000, stock:4, e:'👢' },
+  ];
+
+  const stockBody = document.getElementById('stockBody');
+
+  function renderStock(){
+    stockBody.innerHTML = stock.map(item => `
+      <tr>
+        <td><div class="stock-thumb">${illoSVG(item.e, 'stock-' + item.id + '-' + item.nombre, true)}</div></td>
+        <td>${item.nombre}</td>
+        <td><span class="stock-cat">${item.cat}</span></td>
+        <td>$${item.precio.toLocaleString('es-AR')}</td>
+        <td><span class="stock-qty ${item.stock <= 2 ? 'low' : ''}">${item.stock}</span></td>
+        <td>
+          <div class="stock-controls">
+            <button class="stock-btn" data-id="${item.id}" data-op="menos" ${item.stock === 0 ? 'disabled' : ''}>−</button>
+            <button class="stock-btn" data-id="${item.id}" data-op="mas">+</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  stockBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.stock-btn');
+    if(!btn) return;
+    const id = Number(btn.dataset.id);
+    const item = stock.find(s => s.id === id);
+    if(!item) return;
+    if(btn.dataset.op === 'mas') item.stock++;
+    else item.stock = Math.max(0, item.stock - 1);
+    renderStock();
+  });
+
+  renderStock();
+
+});
+
+</script>
+</body>
+</html>
